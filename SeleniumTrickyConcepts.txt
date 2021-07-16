@@ -1,0 +1,106 @@
+1) implicitlyWait():
+driver.manage().timeouts().implicitlyWait(30, Timeout.SECONDS);
+- Doesn't care about interactable or visible
+- Check for DOM presence
+- Don't waits for whole specified time (opp. Thread.sleep)
+- Due to internet connection issues, this is best
+
+2)  explicitlyWait():
+WebDriverWait wait = new WebDriverWait(driver, 20);
+WebElement profile = wait.until(ExpectedConditions.elementToBeClickable(By.);
+- Predefined conditions
+
+3) fluentWaits():
+Wait<WebDriver> wait =  new FluentWait<WebDriver>(driver)
+.withTimeout(30, TimeUnit.SECONDS) //Deprecated
+.pollingEvery(3, TimeUnit.SECONDS)  // Deprecated
+.withTimeout(Duration.ofSeconds(30))
+.pollingEvery(Duration.ofSeconds(30))
+.ignoring(NoSuchElementException.class);
+WebElement profile = wait.until(new Function<WebDriver, WebElement>(){
+public WebElement Apply(WebDriver driver){
+return driver.findelement(
+By.xpath(""));
+}
+
+4) Close vs Quit
+quit() - Closes all the windows 
+close() - Close the window which the driver has its focus
+
+5) Get Vs Navigate
+get() - No history maintained
+         - Waits for DOM to load completely
+navigate() - History is maintained
+                  - Methods: to(), back(), forward() and refresh()
+
+6) - See eclipse IDE
+
+7) Refresh methods
+driver.navigate().refresh();
+
+driver.get(driver.getCurrentUrl());
+
+JavascriptExecutor executor = (JavascriptExecutor) driver;
+executor.executeScript("location.reload()"); // history.go(0)
+
+Robot robot = new Robot();
+robot.keyPress(KeyEvent.VK_F5);
+robot.keyRelease(KeyEvent.VK_F5);
+
+8) Maximize screen
+driver.manage().window().maximize();
+Dimension dimension = new Dimension(1366,768);
+driver.manage().window().setSize(dimension);
+ChromeOptions chromeoptions = new ChromeOptions();
+chromeoptions.addArguments("--start-maximized"); //Use before browser launch
+
+9) Thread.sleep() vs Selenium.setSpeed()
+setSpeed() - The time set for all operations  
+
+10) launch browser without System.setProperty()
+- Add driver path in Environment variables in path (System Variables)
+- Restart the system for the changes to work
+
+11) Handling authentication Popup
+"http://username:password@url"
+
+12) , 13) , 14) - Refer Eclipse IDE
+
+15) - sendKeys ways
+- search.sendKeys.("Text"+Keys.ENTER);
+- search.sendKeys.("Text");
+   search..submit();
+-  Robot robot = new Robot();
+   robot.keyPress(KeyEvent.ENTER);
+   robot.keyRelease(KeyEvent.ENTER);
+-  search.sendKeys.("Text \n");
+
+16) - Switch to active element
+- driver.switchTo().activeElement().sendKeys("EURO 2020 \n");
+-  PageFactory.initElements(driver, Classname.class);
+   static WebElements q;
+   q.sendKeys("EURO 2020 \n");
+
+20) Assert vs Verify
+// Hard Assertion -- stops after fails
+System.out.println("Before");
+Assert.fail();
+System.out.println("After");
+
+// Soft Assertion -- verification - Continue even it fails
+SoftAssert assert1 = new SoftAssert();
+System.out.println("Before");
+assert1.fail();
+System.out.println("After");
+
+21) without sendKeys method:
+JavascriptExecutor executor = (JavascriptExecutor) driver;
+executor.executeScript(document.getElementByName['q'][0].value = "EURO 2020","");
+executor.executeScript(arguments[0].value = "EURO 2020", WebElement);
+Use robot class - another way
+
+24) run a TC mulitple times
+@Test(invocationCount = 3)
+ public void test(){
+ System.out.println("EURO 2020");
+}
